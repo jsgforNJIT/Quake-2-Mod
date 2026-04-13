@@ -1184,7 +1184,7 @@ SHOTGUN / SUPERSHOTGUN
 void weapon_shotgun_fire (edict_t *ent)
 {
 	vec3_t		start;
-	vec3_t		forward, right;
+	vec3_t		forward, right, backward;
 	vec3_t		offset;
 	int			damage = 4;
 	int			kick = 8;
@@ -1212,7 +1212,13 @@ void weapon_shotgun_fire (edict_t *ent)
 	if (deathmatch->value)
 		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 	else
+	{
+		//Edited stuff in shotgun
 		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+		fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+		fire_rail(ent, start, forward, damage, kick);
+		fire_rocket(ent, start, forward, damage, 650, 100, 200);
+	}
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);

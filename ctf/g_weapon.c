@@ -652,6 +652,7 @@ fire_rail
 */
 void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick)
 {
+	edict_t		*SP_monster_soldier;
 	vec3_t		from;
 	vec3_t		end;
 	trace_t		tr;
@@ -667,6 +668,8 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 	while (ignore)
 	{
 		tr = gi.trace (from, NULL, NULL, end, ignore, mask);
+
+
 
 		if (tr.contents & (CONTENTS_SLIME|CONTENTS_LAVA))
 		{
@@ -705,6 +708,8 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 
 	if (self->client)
 		PlayerNoise(self, tr.endpos, PNOISE_IMPACT);
+	SP_monster_soldier = G_Spawn();
+	VectorCopy(end, SP_monster_soldier->s.origin);
 }
 
 
