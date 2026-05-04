@@ -830,6 +830,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	ent->client->kick_angles[0] = -1;
 
 	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
