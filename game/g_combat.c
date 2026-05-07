@@ -374,6 +374,11 @@ qboolean CheckTeamDamage (edict_t *targ, edict_t *attacker)
 	return false;
 }
 
+
+/*
+Where to do the thing to make check for projectile type
+*/
+
 void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir, vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod)
 {
 	gclient_t	*client;
@@ -385,6 +390,23 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 
 	if (!targ->takedamage)
 		return;
+
+	//AngleVectors(dir, 180, 180, 180);
+	for (int i = 0; i < 3; i++) {
+		dir[i] = -dir[i];
+	}
+	VectorNormalize(dir);
+	if (strcmp(inflictor->classname, "rocket") == 0) {
+		fire_rocket(attacker, point, dir, 120, 600, 2.5, 160);
+		//fprintf("Fired weapon: %s", inflictor->classname);
+	}
+	else if (strcmp(inflictor->classname, "bolt") == 0) {
+		fire_blaster(attacker, point, dir, damage, 1000, 0x00000008, true);
+		//fprintf("Fired weapon: %s", inflictor->classname);
+	}
+
+	gi.dprintf("Fired weapon: %s\n", inflictor->classname);
+
 
 	// friendly fire avoidance
 	// if enabled you can't hurt teammates (but you can hurt yourself)

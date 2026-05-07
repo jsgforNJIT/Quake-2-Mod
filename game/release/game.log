@@ -1,0 +1,8 @@
+﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  g_combat.c
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(370,51): warning C4100: 'attacker': unreferenced formal parameter
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(370,36): warning C4100: 'targ': unreferenced formal parameter
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(249): warning C4701: potentially uninitialized local variable 'index' used
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(209): warning C4701: potentially uninitialized local variable 'power' used
+     Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
+  game.vcxproj -> C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\release\gamex86.dll

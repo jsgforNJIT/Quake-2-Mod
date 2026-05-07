@@ -830,6 +830,9 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	ent->client->kick_angles[0] = -1;
 
 	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_grenade(ent, start, forward, 120, 600, 2.5, 160);
+
+	printf("The firer: %s.\n", ent);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1181,7 +1184,7 @@ SHOTGUN / SUPERSHOTGUN
 ======================================================================
 */
 
-void weapon_shotgun_fire (edict_t *ent)
+void weapon_shotgun_fire(edict_t* ent)
 {
 	vec3_t		start;
 	vec3_t		forward, right;
@@ -1195,13 +1198,13 @@ void weapon_shotgun_fire (edict_t *ent)
 		return;
 	}
 
-	AngleVectors (ent->client->v_angle, forward, right, NULL);
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
 
-	VectorScale (forward, -2, ent->client->kick_origin);
+	VectorScale(forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -2;
 
-	VectorSet(offset, 0, 8,  ent->viewheight-8);
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	VectorSet(offset, 0, 8, ent->viewheight - 8);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 	if (is_quad)
 	{
@@ -1210,9 +1213,14 @@ void weapon_shotgun_fire (edict_t *ent)
 	}
 
 	if (deathmatch->value)
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+		fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 	else
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+	{
+	fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+	fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+	fire_rail(ent, start, forward, damage, kick);
+	fire_rocket(ent, start, forward, damage, 650, 100, 200);
+	}
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);

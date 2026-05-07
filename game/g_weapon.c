@@ -489,16 +489,27 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	vec3_t	dir;
 	vec3_t	forward, right, up;
 
-	vectoangles (aimdir, dir);
-	AngleVectors (dir, forward, right, up);
+	//vectoangles (aimdir, dir);
+	//AngleVectors (dir, forward, right, up);
+	vectoangles(aimdir, dir);
+	AngleVectors(aimdir, forward, right, up);
 
 	grenade = G_Spawn();
 	VectorCopy (start, grenade->s.origin);
 	VectorScale (aimdir, speed, grenade->velocity);
-	VectorMA (grenade->velocity, 200 + crandom() * 10.0, up, grenade->velocity);
-	VectorMA (grenade->velocity, crandom() * 10.0, right, grenade->velocity);
+	//VectorMA (grenade->velocity, 200 + crandom() * 10.0, up, grenade->velocity);
+	//VectorMA (grenade->velocity, crandom() * 10.0, right, grenade->velocity);
+
+
+	/*
+	VectorCopy (start, rocket->s.origin);
+	VectorCopy (dir, rocket->movedir);
+	vectoangles (dir, rocket->s.angles);
+	VectorScale (dir, speed, rocket->velocity);
+	*/
+
 	VectorSet (grenade->avelocity, 300, 300, 300);
-	grenade->movetype = MOVETYPE_BOUNCE;
+	grenade->movetype = MOVETYPE_FLYMISSILE;
 	grenade->clipmask = MASK_SHOT;
 	grenade->solid = SOLID_BBOX;
 	grenade->s.effects |= EF_GRENADE;
@@ -509,6 +520,7 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade->touch = Grenade_Touch;
 	grenade->nextthink = level.time + timer;
 	grenade->think = Grenade_Explode;
+
 	grenade->dmg = damage;
 	grenade->dmg_radius = damage_radius;
 	grenade->classname = "grenade";
