@@ -388,23 +388,28 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	int			psave;
 	int			te_sparks;
 	char* possProjForStor[5] = { "rocket", "bolt", "grenade", "bfg blast", "hgrenade" };
-	qboolean	matchesProj;
+	qboolean	matchesProj = false;
 
 	if (!targ->takedamage)
 		return;
 
 	//AngleVectors(dir, 180, 180, 180);
+	
 	for (int i = 0; i < 3; i++) {
 		dir[i] = -dir[i];
 	}
 	if (strcmp(targ->classname, "player") == 0){//&& targ->projStor != NULL) {
-		for (int i = 0; i < sizeof(possProjForStor); i++) {
+		for (int i = 0; i < 5; i++) {
 			if (strcmp(inflictor->classname, possProjForStor[i]) == 0) {
-				matchesProj = true;
+				matchesProj = true; 
+				//gi.dprintf("Projectile does match; %s, %s\n", inflictor->classname, possProjForStor[i]);
 				break;
 			}
 		}
-		if (matchesProj) {
+		
+		if (matchesProj == true) {
+			//gi.dprintf("Projectile does match");
+			
 			damage = 0;
 			if (targ->projStor) {
 				targ->projStor[targ->secondProjSpace] = inflictor->classname;
@@ -412,8 +417,11 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 				targ->secondProjSpace = !targ->secondProjSpace;
 			}
 			
+			
 		}
+		
 	}
+	/*
 	VectorNormalize(dir);
 	if (strcmp(inflictor->classname, "rocket") == 0) {
 		fire_rocket(targ, point, dir, 120, 600, 2.5, 160);
@@ -429,7 +437,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	}
 
 	gi.dprintf("Fired weapon: %s\n", inflictor->classname);
-
+	*/
 
 	// friendly fire avoidance
 	// if enabled you can't hurt teammates (but you can hurt yourself)
