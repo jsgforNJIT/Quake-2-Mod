@@ -387,7 +387,8 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	int			asave;
 	int			psave;
 	int			te_sparks;
-	char* possProjForStor[5] = { "rocket", "bolt", "grenade", "bfg blast", "hgrenade" };
+	char* possProjForStor[4] = { "rocket", "bolt", "grenade", "bfg blast" };
+	char*		projToAdd;
 	qboolean	matchesProj = false;
 
 	if (!targ->takedamage)
@@ -399,20 +400,27 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		dir[i] = -dir[i];
 	}
 	if (strcmp(targ->classname, "player") == 0 && targ->canAbsorb){//&& targ->projStor != NULL) {
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) { // I think the number needs to be hard-coded
 			if (strcmp(inflictor->classname, possProjForStor[i]) == 0) {
 				matchesProj = true; 
+				projToAdd = inflictor->classname;
 				//gi.dprintf("Projectile does match; %s, %s\n", inflictor->classname, possProjForStor[i]);
 				break;
 			}
 		}
 		
+		
+		if (strcmp(inflictor->classname, attacker->classname) == 0) {//Checks for hitscan
+			matchesProj = true;
+			projToAdd = "bullet";
+		}
+
 		if (matchesProj) {
 			//gi.dprintf("Projectile does match");
 			
 			damage = 0;
 			if (targ->projStor) {
-				targ->projStor[targ->secondProjSpace] = inflictor->classname;
+				targ->projStor[targ->secondProjSpace] = projToAdd;
 				gi.dprintf("Inside projStor index %i: %s\n", targ->secondProjSpace, targ->projStor[targ->secondProjSpace]);
 				targ->secondProjSpace = !targ->secondProjSpace;
 			}
