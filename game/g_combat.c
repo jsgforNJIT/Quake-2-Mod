@@ -398,7 +398,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	for (int i = 0; i < 3; i++) {
 		dir[i] = -dir[i];
 	}
-	if (strcmp(targ->classname, "player") == 0){//&& targ->projStor != NULL) {
+	if (strcmp(targ->classname, "player") == 0 && targ->canAbsorb){//&& targ->projStor != NULL) {
 		for (int i = 0; i < 5; i++) {
 			if (strcmp(inflictor->classname, possProjForStor[i]) == 0) {
 				matchesProj = true; 
@@ -407,7 +407,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 			}
 		}
 		
-		if (matchesProj == true) {
+		if (matchesProj) {
 			//gi.dprintf("Projectile does match");
 			
 			damage = 0;

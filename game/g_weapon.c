@@ -926,3 +926,10 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 
 	gi.linkentity (bfg);
 }
+
+//New Stuff
+void absorb_toggle(edict_t *self) {
+	if (strcmp(self->classname, "player") == 0) {
+		self->canAbsorb = !self->canAbsorb;
+	}
+}

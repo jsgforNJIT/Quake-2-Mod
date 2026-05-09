@@ -1324,6 +1324,7 @@ void ClientBegin (edict_t *ent)
 		G_InitEdict (ent);
 		ent->classname = "player";
 		ent->secondProjSpace = false;
+		ent->canAbsorb = false;
 		gi.dprintf("%i\n", ent->secondProjSpace);
 		InitClientResp (ent->client);
 		PutClientInServer (ent);

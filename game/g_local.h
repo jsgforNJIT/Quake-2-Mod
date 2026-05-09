@@ -1023,6 +1023,7 @@ struct edict_s
 	//NEW STUFF
 	char		*projStor[2];
 	qboolean	secondProjSpace;
+	qboolean	canAbsorb;
 
 	float		speed, accel, decel;
 	vec3_t		movedir;
