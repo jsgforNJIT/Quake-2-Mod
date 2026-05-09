@@ -387,6 +387,8 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	int			asave;
 	int			psave;
 	int			te_sparks;
+	char* possProjForStor[5] = { "rocket", "bolt", "grenade", "bfg blast", "hgrenade" };
+	qboolean	matchesProj;
 
 	if (!targ->takedamage)
 		return;
@@ -395,14 +397,35 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	for (int i = 0; i < 3; i++) {
 		dir[i] = -dir[i];
 	}
+	if (strcmp(targ->classname, "player") == 0){//&& targ->projStor != NULL) {
+		for (int i = 0; i < sizeof(possProjForStor); i++) {
+			if (strcmp(inflictor->classname, possProjForStor[i]) == 0) {
+				matchesProj = true;
+				break;
+			}
+		}
+		if (matchesProj) {
+			damage = 0;
+			if (targ->projStor) {
+				targ->projStor[targ->secondProjSpace] = inflictor->classname;
+				gi.dprintf("Inside projStor index %i: %s\n", targ->secondProjSpace, targ->projStor[targ->secondProjSpace]);
+				targ->secondProjSpace = !targ->secondProjSpace;
+			}
+			
+		}
+	}
 	VectorNormalize(dir);
 	if (strcmp(inflictor->classname, "rocket") == 0) {
-		fire_rocket(attacker, point, dir, 120, 600, 2.5, 160);
-		//fprintf("Fired weapon: %s", inflictor->classname);
+		fire_rocket(targ, point, dir, 120, 600, 2.5, 160);
 	}
 	else if (strcmp(inflictor->classname, "bolt") == 0) {
-		fire_blaster(attacker, point, dir, damage, 1000, 0x00000008, true);
-		//fprintf("Fired weapon: %s", inflictor->classname);
+		fire_blaster(targ, point, dir, damage, 1000, 0x00000008, true);
+	} //For some reason, pellets and bullets have the inflictor as "player" or "monster_soldier" (whoever shot the bullet)
+	else if (strcmp(inflictor->classname, "player") == 0) {
+		fire_shotgun(targ, point, dir, damage, 0, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+	}
+	else if (strcmp(inflictor->classname, "grenade") == 0) {
+		fire_grenade(targ, point, dir, damage, 600, 2.5, damage + 40);
 	}
 
 	gi.dprintf("Fired weapon: %s\n", inflictor->classname);

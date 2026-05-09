@@ -82,7 +82,9 @@ struct gclient_s
 	// this point in the structure
 };
 
-
+/*
+Where to edit the thing that affects the player
+*/
 struct edict_s
 {
 	entity_state_t	s;

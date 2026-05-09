@@ -1323,9 +1323,14 @@ void ClientBegin (edict_t *ent)
 		// ClientConnect() time
 		G_InitEdict (ent);
 		ent->classname = "player";
+		ent->secondProjSpace = false;
+		gi.dprintf("%i\n", ent->secondProjSpace);
 		InitClientResp (ent->client);
 		PutClientInServer (ent);
 	}
+
+	//Checking if this is where the player class is defined; YES, IT IS WHERE PLAYER IS DEFINED
+	gi.dprintf("Who has entered: %s\n", ent->classname);
 
 	if (level.intermissiontime)
 	{

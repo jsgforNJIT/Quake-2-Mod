@@ -4,5 +4,6 @@ C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(370,51): warning C410
 C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(370,36): warning C4100: 'targ': unreferenced formal parameter
 C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(249): warning C4701: potentially uninitialized local variable 'index' used
 C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(209): warning C4701: potentially uninitialized local variable 'power' used
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_combat.c(407): warning C4701: potentially uninitialized local variable 'matchesProj' used
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\release\gamex86.dll
