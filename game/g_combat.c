@@ -387,7 +387,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	int			asave;
 	int			psave;
 	int			te_sparks;
-	char* possProjForStor[4] = { "rocket", "bolt", "grenade", "bfg blast" };
+	char* possProjForStor[3] = { "rocket", "bolt", "grenade" };
 	char*		projToAdd;
 	qboolean	matchesProj = false;
 
@@ -396,11 +396,14 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 
 	//AngleVectors(dir, 180, 180, 180);
 	
+	gi.dprintf("Mod for the hit: %i\n", mod);
+
 	for (int i = 0; i < 3; i++) {
 		dir[i] = -dir[i];
 	}
 	if (strcmp(targ->classname, "player") == 0 && targ->canAbsorb){//&& targ->projStor != NULL) {
-		for (int i = 0; i < 4; i++) { // I think the number needs to be hard-coded
+		
+		for (int i = 0; i < 3; i++) { // Checks the projectile; I think the number needs to be hard-coded
 			if (strcmp(inflictor->classname, possProjForStor[i]) == 0) {
 				matchesProj = true; 
 				projToAdd = inflictor->classname;
@@ -408,16 +411,17 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 				break;
 			}
 		}
-		
-		
-		if (strcmp(inflictor->classname, attacker->classname) == 0) {//Checks for hitscan
+		if ((mod == MOD_MACHINEGUN) || (mod == MOD_CHAINGUN)) {// Checks for machinegun
 			matchesProj = true;
 			projToAdd = "bullet";
+		}
+		else if ((mod == MOD_SHOTGUN) || (mod == MOD_SSHOTGUN)) {// Checks for shotgun
+			matchesProj = true;
+			projToAdd = "shotgun";
 		}
 
 		if (matchesProj) {
 			//gi.dprintf("Projectile does match");
-			
 			damage = 0;
 			if (targ->projStor) {
 				targ->projStor[targ->secondProjSpace] = projToAdd;

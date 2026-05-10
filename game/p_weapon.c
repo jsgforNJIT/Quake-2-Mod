@@ -376,7 +376,7 @@ A generic function to handle the basics of weapon thinking
 #define FRAME_FIRE_FIRST		(FRAME_ACTIVATE_LAST + 1)
 #define FRAME_IDLE_FIRST		(FRAME_FIRE_LAST + 1)
 #define FRAME_DEACTIVATE_FIRST	(FRAME_IDLE_LAST + 1)
-
+// I think this handles firerate
 void Weapon_Generic (edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, int *pause_frames, int *fire_frames, void (*fire)(edict_t *ent))
 {
 	int		n;
@@ -818,6 +818,8 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	vec3_t	forward, right;
 	vec3_t	start;
 	vec3_t	offset;
+	char* possProjStorOptions[5] = { "bolt", "shotgun", "bullet", "rocket", "grenade"};
+	qboolean possProjStorBool[5] = { false, false, false, false, false };
 
 	if (is_quad)
 		damage *= 4;
@@ -834,6 +836,36 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	absorb_toggle(ent);
 
 	printf("The firer: %s.\n", ent);
+
+	//Decide what to shoot START:
+	if (!ent->canAbsorb && ent->projStor[1]) {
+		for (int indOpt = 0; indOpt < 5; indOpt++) {
+			if (strcmp(ent->projStor[0], possProjStorOptions[indOpt]) == 0 || strcmp(ent->projStor[0], possProjStorOptions[indOpt])) {
+				possProjStorBool[indOpt] = true;
+			}
+		}
+
+		if (possProjStorBool[0]) {
+			
+		}
+		else if (possProjStorBool[1]) {
+
+		}
+		else if (possProjStorBool[2]) {
+
+		}
+		else if (possProjStorBool[3]) {
+
+		}
+		else if (possProjStorBool[4]) {
+
+		}
+
+	}
+	//Decide what to shoot END:
+
+
+
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
