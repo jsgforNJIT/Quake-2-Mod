@@ -396,7 +396,7 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 
 	//AngleVectors(dir, 180, 180, 180);
 	
-	gi.dprintf("Mod for the hit: %i\n", mod);
+	//gi.dprintf("Mod for the hit: %i\n", mod);
 
 	for (int i = 0; i < 3; i++) {
 		dir[i] = -dir[i];

@@ -1,7 +1,7 @@
 ﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  g_monster.c
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_monster.c(91,95): warning C4100: 'kick': unreferenced formal parameter
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_monster.c(440,43): warning C4100: 'other': unreferenced formal parameter
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_monster.c(483,59): warning C4100: 'other': unreferenced formal parameter
+  p_weapon.c
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(836,15): warning C4013: 'absorb_toggle' undefined; assuming extern returning int
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(838,9): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'edict_t *'
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(816,83): warning C4100: 'effect': unreferenced formal parameter
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\release\gamex86.dll

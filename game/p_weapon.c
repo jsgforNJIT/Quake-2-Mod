@@ -840,26 +840,68 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	//Decide what to shoot START:
 	if (!ent->canAbsorb && ent->projStor[1]) {
 		for (int indOpt = 0; indOpt < 5; indOpt++) {
-			if (strcmp(ent->projStor[0], possProjStorOptions[indOpt]) == 0 || strcmp(ent->projStor[0], possProjStorOptions[indOpt])) {
+			if (strcmp(ent->projStor[0], possProjStorOptions[indOpt]) == 0 || strcmp(ent->projStor[1], possProjStorOptions[indOpt])) {
 				possProjStorBool[indOpt] = true;
 			}
 		}
 
 		if (possProjStorBool[0]) {
-			
+			if (possProjStorBool[1]) {
+
+			}
+			else if (possProjStorBool[2]) {
+
+			}
+			else if (possProjStorBool[3]) {
+
+			}
+			else if (possProjStorBool[4]) {
+
+			}
+			else {//Same projectile as root
+
+			}
 		}
 		else if (possProjStorBool[1]) {
+			if (possProjStorBool[2]) {
 
+			}
+			else if (possProjStorBool[3]) {
+
+			}
+			else if (possProjStorBool[4]) {
+
+			}
+			else {//Same projectile as root
+
+			}
 		}
 		else if (possProjStorBool[2]) {
+			if (possProjStorBool[3]) {
 
+			}
+			else if (possProjStorBool[4]) {
+
+			}
+			else {//Same projectile as root
+
+			}
 		}
 		else if (possProjStorBool[3]) {
+			if (possProjStorBool[4]) {
 
+			}
+			else {//Same projectile as root
+
+			}
 		}
 		else if (possProjStorBool[4]) {
 
 		}
+
+		ent->projStor[0] = NULL;
+		ent->projStor[1] = NULL;
+		ent->secondProjSpace = false;
 
 	}
 	//Decide what to shoot END:
@@ -1224,6 +1266,7 @@ void weapon_shotgun_fire(edict_t* ent)
 	vec3_t		offset;
 	int			damage = 4;
 	int			kick = 8;
+	char* possProjStorOptions[5] = { "bolt", "shotgun", "bullet", "rocket", "grenade" };
 
 	if (ent->client->ps.gunframe == 9)
 	{
@@ -1249,10 +1292,23 @@ void weapon_shotgun_fire(edict_t* ent)
 		fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 	else
 	{
-	fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+
+	/*fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
 	fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
 	fire_rail(ent, start, forward, damage, kick);
-	fire_rocket(ent, start, forward, damage, 650, 100, 200);
+	fire_rocket(ent, start, forward, damage, 650, 100, 200);*/
+
+		if (ent->projStor[0] || ent->projStor[1]) {
+			for (int indOpt = 0; indOpt < 5; indOpt++) {
+				ent->hasPowers[indOpt] = false;
+				if (strcmp(ent->projStor[!ent->secondProjSpace], possProjStorOptions[indOpt]) == 0) {
+					ent->hasPowers[indOpt] = true;
+				}
+				gi.dprintf("%s: %i \t", possProjStorOptions[indOpt], ent->hasPowers[indOpt]);
+			}
+			gi.dprintf("\n");
+		}
+
 	}
 
 	// send muzzle flash
