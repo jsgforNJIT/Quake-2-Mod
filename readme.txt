@@ -1,29 +1,11 @@
+This is the README for my mod called "heavens" (name was arbitrary)
 
-This is the complete source code for Quake 2, version 3.19, buildable with
-visual C++ 6.0.  The linux version should be buildable, but we haven't
-tested it for the release.
+How to install/play:
+1. Download this git pack
+2. Open the local files for the Quake 2 game. If the game is owned on Steam, right click the game in the library, click "Manage", and click "Browse local files"
+3. Copy the folder called "heavens" from this git pack and paste it into the Quake 2 game folder
+4. To play, if Quake 2 is owned on Steam, right click the game in the library, click "Properties", and paste this text into "Launch Options": +set game heavens
 
-The code is all licensed under the terms of the GPL (gnu public license).  
-You should read the entire license, but the gist of it is that you can do 
-anything you want with the code, including sell your new version.  The catch 
-is that if you distribute new binary versions, you are required to make the 
-entire source code available for free to everyone.
-
-The primary intent of this release is for entertainment and educational 
-purposes, but the GPL does allow commercial exploitation if you obey the 
-full license.  If you want to do something commercial and you just can't bear 
-to have your source changes released, we could still negotiate a separate 
-license agreement (for $$$), but I would encourage you to just live with the 
-GPL.
-
-All of the Q2 data files remain copyrighted and licensed under the 
-original terms, so you cannot redistribute data from the original game, but if 
-you do a true total conversion, you can create a standalone game based on 
-this code.
-
-Thanks to Robert Duffy for doing the grunt work of building this release.
-
-John Carmack
-Id Software
-
-
+Features:
+1. The blaster now toggles the ability to store the two projectiles that last hit the player
+2. The shotgun now activates a power based on the most recently stored projectile
