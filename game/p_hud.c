@@ -355,6 +355,7 @@ void HelpComputer (edict_t *ent)
 		//level.killed_monsters, level.total_monsters, 
 		//level.found_goals, level.total_goals,
 		//level.found_secrets, level.total_secrets);
+		//bbbobobobob
 		proj1, proj2, power);
 
 	gi.WriteByte (svc_layout);
