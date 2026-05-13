@@ -1,1 +1,2 @@
 C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\release\gamex86.dll
+C:\Users\jonga\Git Stuff\Quake-2-Mod\game\release\gamex86.dll
