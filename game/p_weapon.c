@@ -818,6 +818,8 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	vec3_t	forward, right;
 	vec3_t	start;
 	vec3_t	offset;
+	int kick = 2;
+	vec3_t		v;
 	char* possProjStorOptions[5] = { "bolt", "shotgun", "bullet", "rocket", "grenade"};
 	qboolean possProjStorBool[5] = { false, false, false, false, false };
 
@@ -841,10 +843,12 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	//Decide what to shoot START:
 	if (!ent->canAbsorb && ent->projStor[1]) {
 		for (int indOpt = 0; indOpt < 5; indOpt++) {
-			if (strcmp(ent->projStor[0], possProjStorOptions[indOpt]) == 0 || strcmp(ent->projStor[1], possProjStorOptions[indOpt])) {
+			if (strcmp(ent->projStor[0], possProjStorOptions[indOpt]) == 0 || strcmp(ent->projStor[1], possProjStorOptions[indOpt]) == 0) {
 				possProjStorBool[indOpt] = true;
+				//gi.dprintf("%i: %s %s for %s", indOpt, ent->projStor[0], ent->projStor[1], possProjStorOptions[indOpt]); // Tracing for fire
 			}
 		}
+		//gi.dprintf("\n"); // Tracing for fire
 
 		if (possProjStorBool[0]) {
 			if (possProjStorBool[1]) {
@@ -874,7 +878,18 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 
 			}
 			else {//Same projectile as root
-
+				//gi.dprintf("This should be working");
+				v[PITCH] = ent->client->v_angle[PITCH];
+				v[YAW] = ent->client->v_angle[YAW] - 5;
+				v[ROLL] = ent->client->v_angle[ROLL];
+				AngleVectors(v, forward, NULL, NULL);
+				fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+				v[YAW] = ent->client->v_angle[YAW] + 5;
+				AngleVectors(v, forward, NULL, NULL);
+				fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+				v[YAW] = ent->client->v_angle[YAW] + 5;
+				AngleVectors(v, forward, NULL, NULL);
+				fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
 			}
 		}
 		else if (possProjStorBool[2]) {
@@ -897,7 +912,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 			}
 		}
 		else if (possProjStorBool[4]) {
-
+			fire_grenade(ent, start, forward, 10000, 600, 2.5, 1000);
 		}
 
 		ent->projStor[0] = NULL;
@@ -910,8 +925,8 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 
 
 //=======
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
-	fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
+	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
 //>>>>>>> 3cc8451 (Testing that I can push)
 
 	// send muzzle flash
