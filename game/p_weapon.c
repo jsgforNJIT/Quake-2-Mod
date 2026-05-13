@@ -851,33 +851,33 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 		//gi.dprintf("\n"); // Tracing for fire
 
 		if (possProjStorBool[0]) {
-			if (possProjStorBool[1]) {
+			if (possProjStorBool[1]) { // bolt, shotgun
 
 			}
-			else if (possProjStorBool[2]) {
+			else if (possProjStorBool[2]) { // bolt, bullet
 
 			}
-			else if (possProjStorBool[3]) {
+			else if (possProjStorBool[3]) { // bolt, rocket
 
 			}
-			else if (possProjStorBool[4]) {
+			else if (possProjStorBool[4]) { // bolt, grenade
 
 			}
-			else {//Same projectile as root
-
+			else {//Same projectile as root // bolt, bolt; powerful bolt
+				fire_blaster(ent, start, forward, damage * 8, 2000, effect, hyper);
 			}
 		}
 		else if (possProjStorBool[1]) {
-			if (possProjStorBool[2]) {
+			if (possProjStorBool[2]) { // shotgun, bullet
 
 			}
-			else if (possProjStorBool[3]) {
+			else if (possProjStorBool[3]) { // shotgun, rocket
 
 			}
-			else if (possProjStorBool[4]) {
+			else if (possProjStorBool[4]) { // shotgun, grenade
 
 			}
-			else {//Same projectile as root
+			else {//Same projectile as root // shotgun, shotgun; shotgun
 				//gi.dprintf("This should be working");
 				v[PITCH] = ent->client->v_angle[PITCH];
 				v[YAW] = ent->client->v_angle[YAW] - 5;
@@ -892,32 +892,32 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 				fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
 			}
 		}
-		else if (possProjStorBool[2]) {
-			if (possProjStorBool[3]) {
+		else if (possProjStorBool[2]) { 
+			if (possProjStorBool[3]) { // bullet, rocket
 
 			}
-			else if (possProjStorBool[4]) {
+			else if (possProjStorBool[4]) { // bullet, grenade
 
 			}
-			else {//Same projectile as root
+			else {//Same projectile as root // bullet, bullet
 
 			}
 		}
 		else if (possProjStorBool[3]) {
-			if (possProjStorBool[4]) {
+			if (possProjStorBool[4]) { // rocket, grenade
 
 			}
-			else {//Same projectile as root
+			else {//Same projectile as root // rocket, rocket
 
 			}
 		}
-		else if (possProjStorBool[4]) {
+		else if (possProjStorBool[4]) { // grenade, grenade
 			fire_grenade(ent, start, forward, 10000, 600, 2.5, 1000);
 		}
 
-		ent->projStor[0] = NULL;
-		ent->projStor[1] = NULL;
-		ent->secondProjSpace = false;
+		//ent->projStor[0] = NULL;
+		//ent->projStor[1] = NULL;
+		//ent->secondProjSpace = false; //IMPORTANT: ONLY TEMPORARILY DISABLE THESE THREE
 
 	}
 	//Decide what to shoot END:
