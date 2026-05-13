@@ -2,6 +2,6 @@
   p_hud.c
 C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_hud.c(234,11): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_hud.c(245,10): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_hud.c(450): warning C4701: potentially uninitialized local variable 'cells' used
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_hud.c(453): warning C4701: potentially uninitialized local variable 'cells' used
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\release\gamex86.dll

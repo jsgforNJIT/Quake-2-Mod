@@ -340,18 +340,20 @@ void HelpComputer (edict_t *ent)
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
-		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
-		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
+		//"xv 0 yv 54 cstring2 \"%s\" "		// help 1
+		//"xv 0 yv 110 cstring2 \"%s\" "		// help 2
+		"xv 0 yv 54 cstring2 \"The blaster can toggle whether your absorb\nan attack, stored in the slots below.\nEach combo has different effects when shot\" "		// How to play, blaster
+		"xv 0 yv 110 cstring2 \"The shotgun chooses the most recently\nabsorbed attack to give a power\" "		// How to play, shotgun
 		//"xv 50 yv 164 string2 \" kills     goals    secrets\" "
 		"xv 50 yv 164 string2 \" Slot1     Slot2     POWER\" "
 		//"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
-		"xv 50 yv 172 string2 \" %s\" "
-		"xv 130 yv 172 string2 \" %s\" "
-		"xv 210 yv 172 string2 \" %s\" ",
+		"xv 50 yv 172 string2 \" %s\" "		// projectile slot 1
+		"xv 130 yv 172 string2 \" %s\" "	// projectile slot 2
+		"xv 210 yv 172 string2 \" %s\" ",	// power
 		sk,
 		level.level_name,
-		game.helpmessage1,
-		game.helpmessage2,
+		//game.helpmessage1,
+		//game.helpmessage2,
 		//level.killed_monsters, level.total_monsters, 
 		//level.found_goals, level.total_goals,
 		//level.found_secrets, level.total_secrets);
