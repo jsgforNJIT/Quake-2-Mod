@@ -303,6 +303,10 @@ void HelpComputer (edict_t *ent)
 {
 	char	string[1024];
 	char	*sk;
+	char* proj1;
+	char* proj2;
+	char* power;
+	char* possProjStorOptions[5] = { "bolt", "shotgun", "bullet", "rocket", "grenade" };
 
 	if (skill->value == 0)
 		sk = "easy";
@@ -313,22 +317,45 @@ void HelpComputer (edict_t *ent)
 	else
 		sk = "hard+";
 
+	//Things for mod:
+	proj1 = "none";
+	proj2 = "none";
+	power = "none";
+	if (ent->client) {
+		if (ent->projStor[0])
+			proj1 = ent->projStor[0];
+		if (ent->projStor[1])
+			proj2 = ent->projStor[1];
+		for (int indOpt = 0; indOpt < 5; indOpt++) {
+			if (ent->hasPowers[indOpt]) {
+				power = possProjStorOptions[indOpt];
+				break;
+			}
+		}
+	}
+
+
 	// send the layout
-	Com_sprintf (string, sizeof(string),
+	Com_sprintf(string, sizeof(string),
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
 		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
 		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
-		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
-		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
+		//"xv 50 yv 164 string2 \" kills     goals    secrets\" "
+		"xv 50 yv 164 string2 \" Slot1     Slot2     POWER\" "
+		//"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
+		"xv 50 yv 172 string2 \" %s\" "
+		"xv 130 yv 172 string2 \" %s\" "
+		"xv 210 yv 172 string2 \" %s\" ",
 		sk,
 		level.level_name,
 		game.helpmessage1,
 		game.helpmessage2,
-		level.killed_monsters, level.total_monsters, 
-		level.found_goals, level.total_goals,
-		level.found_secrets, level.total_secrets);
+		//level.killed_monsters, level.total_monsters, 
+		//level.found_goals, level.total_goals,
+		//level.found_secrets, level.total_secrets);
+		proj1, proj2, power);
 
 	gi.WriteByte (svc_layout);
 	gi.WriteString (string);

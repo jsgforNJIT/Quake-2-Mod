@@ -472,6 +472,8 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		damage *= 0.5;
 		if (!damage)
 			damage = 1;
+		if (strcmp(targ->classname, "player") == 0 && targ->canAbsorb)
+			damage = 0;
 	}
 
 	client = targ->client;
