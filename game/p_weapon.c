@@ -958,6 +958,12 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 		//gi.dprintf("\n"); // Tracing for fire
 
 		Proj_Shoot(ent, start, forward, damage, possProjStorBool);
+		if (ent->hasPowers[1]){
+			forward[0] = forward[0] - 0.5;
+			Proj_Shoot(ent, start, forward, damage, possProjStorBool);
+			forward[0] = forward[0] + 0.5;
+			Proj_Shoot(ent, start, forward, damage, possProjStorBool);
+			}
 
 		//ent->projStor[0] = NULL;
 		//ent->projStor[1] = NULL;
