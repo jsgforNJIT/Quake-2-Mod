@@ -817,10 +817,22 @@ BLASTER / HYPERBLASTER
 void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean possProjStorBool[5]) {
 	int kick = 2; 
 	vec3_t		v;
+	float		r;
+	float		u;
+	vec3_t		right, up;
+	vec3_t		dirToUse;
 
 	if (possProjStorBool[0]) {
 		if (possProjStorBool[1]) { // bolt, shotgun
-
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					
+					dirToUse[0] = 0.1 * i + forward[0];
+					dirToUse[1] = forward[1];
+					dirToUse[2] = 0.1 * j + forward[2];
+					fire_blaster(ent, start, dirToUse, damage, 1000, false, EF_BLASTER);
+				}
+			}
 		}
 		else if (possProjStorBool[2]) { // bolt, bullet
 
