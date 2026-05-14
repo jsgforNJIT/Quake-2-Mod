@@ -963,12 +963,15 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 			Proj_Shoot(ent, start, forward, damage, possProjStorBool);
 			forward[0] = forward[0] + 0.5;
 			Proj_Shoot(ent, start, forward, damage, possProjStorBool);
-			}
+		}
 
 		//ent->projStor[0] = NULL;
 		//ent->projStor[1] = NULL;
 		//ent->secondProjSpace = false; //IMPORTANT: ONLY TEMPORARILY DISABLE THESE THREE
 
+	}
+	if (ent->hasPowers[0]) {
+		fire_blaster(ent, start, forward, 10000, 100, effect, hyper);
 	}
 	//Decide what to shoot END:
 
