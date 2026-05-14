@@ -134,7 +134,7 @@ qboolean Pickup_Weapon (edict_t *ent, edict_t *other)
 	if (!(ent->spawnflags & DROPPED_ITEM) )
 	{
 		// give them some ammo with it
-		ammo = FindItem (ent->item->ammo);
+		ammo = FindItem(ent->item->ammo);
 		if ( (int)dmflags->value & DF_INFINITE_AMMO )
 			Add_Ammo (other, ammo, 1000);
 		else
@@ -376,7 +376,7 @@ A generic function to handle the basics of weapon thinking
 #define FRAME_FIRE_FIRST		(FRAME_ACTIVATE_LAST + 1)
 #define FRAME_IDLE_FIRST		(FRAME_FIRE_LAST + 1)
 #define FRAME_DEACTIVATE_FIRST	(FRAME_IDLE_LAST + 1)
-
+// I think this handles firerate
 void Weapon_Generic (edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST, int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, int *pause_frames, int *fire_frames, void (*fire)(edict_t *ent))
 {
 	int		n;
@@ -813,11 +813,86 @@ BLASTER / HYPERBLASTER
 ======================================================================
 */
 
+//Helper for projectile fire
+void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean possProjStorBool[5]) {
+	int kick = 2; 
+	vec3_t		v;
+
+	if (possProjStorBool[0]) {
+		if (possProjStorBool[1]) { // bolt, shotgun
+
+		}
+		else if (possProjStorBool[2]) { // bolt, bullet
+
+		}
+		else if (possProjStorBool[3]) { // bolt, rocket
+
+		}
+		else if (possProjStorBool[4]) { // bolt, grenade
+
+		}
+		else {//Same projectile as root // bolt, bolt; powerful bolt
+			fire_blaster(ent, start, forward, damage * 8, 2000, false, EF_BLASTER);
+		}
+	}
+	else if (possProjStorBool[1]) {
+		if (possProjStorBool[2]) { // shotgun, bullet
+
+		}
+		else if (possProjStorBool[3]) { // shotgun, rocket
+
+		}
+		else if (possProjStorBool[4]) { // shotgun, grenade
+
+		}
+		else {//Same projectile as root // shotgun, shotgun; shotgun
+			//gi.dprintf("This should be working");
+			v[PITCH] = ent->client->v_angle[PITCH];
+			v[YAW] = ent->client->v_angle[YAW] - 5;
+			v[ROLL] = ent->client->v_angle[ROLL];
+			AngleVectors(v, forward, NULL, NULL);
+			fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+			v[YAW] = ent->client->v_angle[YAW] + 5;
+			AngleVectors(v, forward, NULL, NULL);
+			fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+			v[YAW] = ent->client->v_angle[YAW] + 5;
+			AngleVectors(v, forward, NULL, NULL);
+			fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+		}
+	}
+	else if (possProjStorBool[2]) {
+		if (possProjStorBool[3]) { // bullet, rocket
+
+		}
+		else if (possProjStorBool[4]) { // bullet, grenade
+
+		}
+		else {//Same projectile as root // bullet, bullet
+
+		}
+	}
+	else if (possProjStorBool[3]) {
+		if (possProjStorBool[4]) { // rocket, grenade
+
+		}
+		else {//Same projectile as root // rocket, rocket
+
+		}
+	}
+	else if (possProjStorBool[4]) { // grenade, grenade
+		fire_grenade(ent, start, forward, 10000, 600, 2.5, 1000);
+	}
+}
+
+
+
 void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, int effect)
 {
 	vec3_t	forward, right;
 	vec3_t	start;
 	vec3_t	offset;
+	char* possProjStorOptions[5] = { "bolt", "shotgun", "bullet", "rocket", "grenade"};
+	qboolean possProjStorBool[5] = { false, false, false, false, false };
 
 	if (is_quad)
 		damage *= 4;
@@ -829,8 +904,43 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
+<<<<<<< HEAD
 	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
 	fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
+=======
+//<<<<<<< HEAD
+	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_grenade(ent, start, forward, 120, 600, 2.5, 160);
+	absorb_toggle(ent);
+
+	printf("The firer: %s.\n", ent);
+
+	//Decide what to shoot START:
+	if (!ent->canAbsorb && ent->projStor[1]) {
+		for (int indOpt = 0; indOpt < 5; indOpt++) {
+			if (strcmp(ent->projStor[0], possProjStorOptions[indOpt]) == 0 || strcmp(ent->projStor[1], possProjStorOptions[indOpt]) == 0) {
+				possProjStorBool[indOpt] = true;
+				//gi.dprintf("%i: %s %s for %s", indOpt, ent->projStor[0], ent->projStor[1], possProjStorOptions[indOpt]); // Tracing for fire
+			}
+		}
+		//gi.dprintf("\n"); // Tracing for fire
+
+		Proj_Shoot(ent, start, forward, damage, possProjStorBool);
+
+		//ent->projStor[0] = NULL;
+		//ent->projStor[1] = NULL;
+		//ent->secondProjSpace = false; //IMPORTANT: ONLY TEMPORARILY DISABLE THESE THREE
+
+	}
+	//Decide what to shoot END:
+
+
+
+//=======
+	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
+//>>>>>>> 3cc8451 (Testing that I can push)
+>>>>>>> abd0911779f0fac0625f1103dd817d2962f57061
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1182,13 +1292,14 @@ SHOTGUN / SUPERSHOTGUN
 ======================================================================
 */
 
-void weapon_shotgun_fire (edict_t *ent)
+void weapon_shotgun_fire(edict_t* ent)
 {
 	vec3_t		start;
 	vec3_t		forward, right;
 	vec3_t		offset;
 	int			damage = 4;
 	int			kick = 8;
+	char* possProjStorOptions[5] = { "bolt", "shotgun", "bullet", "rocket", "grenade" };
 
 	if (ent->client->ps.gunframe == 9)
 	{
@@ -1196,13 +1307,13 @@ void weapon_shotgun_fire (edict_t *ent)
 		return;
 	}
 
-	AngleVectors (ent->client->v_angle, forward, right, NULL);
+	AngleVectors(ent->client->v_angle, forward, right, NULL);
 
-	VectorScale (forward, -2, ent->client->kick_origin);
+	VectorScale(forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -2;
 
-	VectorSet(offset, 0, 8,  ent->viewheight-8);
-	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
+	VectorSet(offset, 0, 8, ent->viewheight - 8);
+	P_ProjectSource(ent->client, ent->s.origin, offset, forward, right, start);
 
 	if (is_quad)
 	{
@@ -1211,9 +1322,27 @@ void weapon_shotgun_fire (edict_t *ent)
 	}
 
 	if (deathmatch->value)
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+		fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 	else
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+	{
+
+	/*fire_shotgun(ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+	fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);
+	fire_rail(ent, start, forward, damage, kick);
+	fire_rocket(ent, start, forward, damage, 650, 100, 200);*/
+
+		if (ent->projStor[0] || ent->projStor[1]) {
+			for (int indOpt = 0; indOpt < 5; indOpt++) {
+				ent->hasPowers[indOpt] = false;
+				if (strcmp(ent->projStor[!ent->secondProjSpace], possProjStorOptions[indOpt]) == 0) {
+					ent->hasPowers[indOpt] = true;
+				}
+				gi.dprintf("%s: %i \t", possProjStorOptions[indOpt], ent->hasPowers[indOpt]);
+			}
+			gi.dprintf("\n");
+		}
+
+	}
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);

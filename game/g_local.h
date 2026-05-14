@@ -1020,6 +1020,12 @@ struct edict_s
 	char		*combattarget;
 	edict_t		*target_ent;
 
+	//NEW STUFF
+	char		*projStor[2];
+	qboolean	secondProjSpace;
+	qboolean	canAbsorb;
+	qboolean	hasPowers[5];
+
 	float		speed, accel, decel;
 	vec3_t		movedir;
 	vec3_t		pos1, pos2;

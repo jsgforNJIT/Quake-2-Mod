@@ -374,6 +374,11 @@ qboolean CheckTeamDamage (edict_t *targ, edict_t *attacker)
 	return false;
 }
 
+
+/*
+Where to do the thing to make check for projectile type
+*/
+
 void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir, vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod)
 {
 	gclient_t	*client;
@@ -382,9 +387,69 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	int			asave;
 	int			psave;
 	int			te_sparks;
+	char* possProjForStor[3] = { "rocket", "bolt", "grenade" };
+	char*		projToAdd;
+	qboolean	matchesProj = false;
 
 	if (!targ->takedamage)
 		return;
+
+	//AngleVectors(dir, 180, 180, 180);
+	
+	//gi.dprintf("Mod for the hit: %i\n", mod);
+
+	for (int i = 0; i < 3; i++) {
+		dir[i] = -dir[i];
+	}
+	if (strcmp(targ->classname, "player") == 0 && targ->canAbsorb){//&& targ->projStor != NULL) {
+		
+		for (int i = 0; i < 3; i++) { // Checks the projectile; I think the number needs to be hard-coded
+			if (strcmp(inflictor->classname, possProjForStor[i]) == 0) {
+				matchesProj = true; 
+				projToAdd = inflictor->classname;
+				//gi.dprintf("Projectile does match; %s, %s\n", inflictor->classname, possProjForStor[i]);
+				break;
+			}
+		}
+		if ((mod == MOD_MACHINEGUN) || (mod == MOD_CHAINGUN)) {// Checks for machinegun
+			matchesProj = true;
+			projToAdd = "bullet";
+		}
+		else if ((mod == MOD_SHOTGUN) || (mod == MOD_SSHOTGUN)) {// Checks for shotgun
+			matchesProj = true;
+			projToAdd = "shotgun";
+		}
+
+		if (matchesProj) {
+			//gi.dprintf("Projectile does match");
+			damage = 0;
+			if (targ->projStor) {
+				targ->projStor[targ->secondProjSpace] = projToAdd;
+				gi.dprintf("Inside projStor index %i: %s\n", targ->secondProjSpace, targ->projStor[targ->secondProjSpace]);
+				targ->secondProjSpace = !targ->secondProjSpace;
+			}
+			
+			
+		}
+		
+	}
+	/*
+	VectorNormalize(dir);
+	if (strcmp(inflictor->classname, "rocket") == 0) {
+		fire_rocket(targ, point, dir, 120, 600, 2.5, 160);
+	}
+	else if (strcmp(inflictor->classname, "bolt") == 0) {
+		fire_blaster(targ, point, dir, damage, 1000, 0x00000008, true);
+	} //For some reason, pellets and bullets have the inflictor as "player" or "monster_soldier" (whoever shot the bullet)
+	else if (strcmp(inflictor->classname, "player") == 0) {
+		fire_shotgun(targ, point, dir, damage, 0, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
+	}
+	else if (strcmp(inflictor->classname, "grenade") == 0) {
+		fire_grenade(targ, point, dir, damage, 600, 2.5, damage + 40);
+	}
+
+	gi.dprintf("Fired weapon: %s\n", inflictor->classname);
+	*/
 
 	// friendly fire avoidance
 	// if enabled you can't hurt teammates (but you can hurt yourself)
@@ -407,6 +472,8 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		damage *= 0.5;
 		if (!damage)
 			damage = 1;
+		if (strcmp(targ->classname, "player") == 0 && targ->canAbsorb)
+			damage = 0;
 	}
 
 	client = targ->client;

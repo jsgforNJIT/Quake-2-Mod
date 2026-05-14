@@ -615,6 +615,14 @@ void InitClientPersistant (gclient_t *client)
 	client->pers.inventory[client->pers.selected_item] = 1;
 
 	client->pers.weapon = item;
+	//To add shotgun:
+	item = FindItem("Shotgun");
+	client->pers.selected_item = ITEM_INDEX(item);
+	client->pers.inventory[client->pers.selected_item] = 1;
+	client->pers.weapon = item;
+	item = FindItem("Shells");
+	client->pers.selected_item = ITEM_INDEX(item);
+	client->pers.inventory[client->pers.selected_item] = 50;
 
 	client->pers.health			= 100;
 	client->pers.max_health		= 100;
@@ -1323,9 +1331,19 @@ void ClientBegin (edict_t *ent)
 		// ClientConnect() time
 		G_InitEdict (ent);
 		ent->classname = "player";
+		ent->secondProjSpace = false;
+		ent->canAbsorb = false;
+		for (int i = 0; i < 5; i++) {
+			ent->hasPowers[i] = false;
+		}
+		//ent->client->pers.inventory[2] += 1;
+		gi.dprintf("%i\n", ent->secondProjSpace);
 		InitClientResp (ent->client);
 		PutClientInServer (ent);
 	}
+
+	//Checking if this is where the player class is defined; YES, IT IS WHERE PLAYER IS DEFINED
+	gi.dprintf("Who has entered: %s\n", ent->classname);
 
 	if (level.intermissiontime)
 	{
