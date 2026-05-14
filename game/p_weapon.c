@@ -837,7 +837,7 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 		else if (possProjStorBool[2]) { // bolt, bullet
 
 		}
-		else if (possProjStorBool[3]) { // bolt, rocket
+		else if (possProjStorBool[3]) { // bolt, rocket; nerf nuke
 			fire_rocket2(ent, start, forward, damage, 800, 100, 200);
 		}
 		else if (possProjStorBool[4]) { // bolt, grenade
@@ -900,8 +900,11 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 		}
 	}
 	else if (possProjStorBool[3]) {
-		if (possProjStorBool[4]) { // rocket, grenade
-
+		if (possProjStorBool[4]) { // rocket, grenade; limp rocket
+			dirToUse[0] = forward[0];
+			dirToUse[1] = forward[1];
+			dirToUse[2] = 0.6 + forward[2];
+			fire_rocket3(ent, start, dirToUse, damage, 400, 100, 600);
 		}
 		else {//Same projectile as root // rocket, rocket; atomic rocket
 			fire_bfg(ent, start, forward, 500, 800, 600);
