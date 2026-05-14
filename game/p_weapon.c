@@ -838,7 +838,7 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 
 		}
 		else if (possProjStorBool[3]) { // bolt, rocket
-
+			fire_rocket2(ent, start, forward, damage, 800, 100, 200);
 		}
 		else if (possProjStorBool[4]) { // bolt, grenade
 
@@ -873,7 +873,7 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 				}
 			}
 		}
-		else {//Same projectile as root // shotgun, shotgun; shotgun
+		else {//Same projectile as root // shotgun, shotgun; super shotgun
 			//gi.dprintf("This should be working");
 			v[PITCH] = ent->client->v_angle[PITCH];
 			v[YAW] = ent->client->v_angle[YAW] - 5;
@@ -903,12 +903,12 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 		if (possProjStorBool[4]) { // rocket, grenade
 
 		}
-		else {//Same projectile as root // rocket, rocket
+		else {//Same projectile as root // rocket, rocket; atomic rocket
 			fire_bfg(ent, start, forward, 500, 800, 600);
 			fire_rocket(ent, start, forward, damage, 800, 100, 200);
 		}
 	}
-	else if (possProjStorBool[4]) { // grenade, grenade
+	else if (possProjStorBool[4]) { // grenade, grenade; nuke-ish
 		fire_grenade(ent, start, forward, 10000, 600, 2.5, 1000);
 	}
 }

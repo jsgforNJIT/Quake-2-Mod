@@ -1,11 +1,19 @@
 ﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  p_weapon.c
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(822,17): warning C4101: 'up': unreferenced local variable
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(822,10): warning C4101: 'right': unreferenced local variable
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(821,9): warning C4101: 'u': unreferenced local variable
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(820,9): warning C4101: 'r': unreferenced local variable
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(943,15): warning C4013: 'absorb_toggle' undefined; assuming extern returning int
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(945,9): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'edict_t *'
-C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\p_weapon.c(918,83): warning C4100: 'effect': unreferenced formal parameter
+  g_cmds.c
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(34,8): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(57,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(58,9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(722,11): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(725,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(808,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(809,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(810,10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(821,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(828,8): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(875,13): warning C4459: declaration of 'st' hides global declaration
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_local.h(456,21): message : see declaration of 'st'
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(897,9): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(885,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\g_cmds.c(893,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Users\Jonathan\Git Stuff PC\Quake 2 mod\game\release\gamex86.dll
