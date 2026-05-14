@@ -904,10 +904,10 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-<<<<<<< HEAD
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
-	fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
-=======
+//<<<<<<< HEAD
+	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
+//=======
 //<<<<<<< HEAD
 	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
 	//fire_grenade(ent, start, forward, 120, 600, 2.5, 160);
@@ -940,7 +940,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	//fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
 	//fire_grenade(ent, start, forward, damage, 600, 2.5, 200);
 //>>>>>>> 3cc8451 (Testing that I can push)
->>>>>>> abd0911779f0fac0625f1103dd817d2962f57061
+//>>>>>>> abd0911779f0fac0625f1103dd817d2962f57061
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
