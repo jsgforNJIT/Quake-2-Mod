@@ -901,6 +901,27 @@ void Cmd_PlayerList_f(edict_t *ent)
 
 
 /*
+NEW COMMAND: GiveProj
+*/
+void GiveProj(edict_t* ent) {
+	char* specif;
+	if (ent->client) {
+
+		specif = gi.argv(1);
+
+		if ((Q_stricmp(specif, "bolt") == 0) || (Q_stricmp(specif, "shotgun") == 0) || (Q_stricmp(specif, "bullet") == 0)
+			|| (Q_stricmp(specif, "rocket") == 0) || (Q_stricmp(specif, "grenade") == 0))
+		{
+			ent->projStor[ent->secondProjSpace] = specif;
+			ent->secondProjSpace = !ent->secondProjSpace;
+		}
+	}
+}
+
+
+
+
+/*
 =================
 ClientCommand
 =================
@@ -987,6 +1008,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Wave_f (ent);
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
+	else if (Q_stricmp(cmd, "giveproj") == 0) // GiveProj
+		GiveProj(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }
