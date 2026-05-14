@@ -8,5 +8,12 @@ How to install/play:
 5. Select "Play Quake II (Original)" to play
 
 Features:
-1. The blaster now toggles the ability to store the two projectiles that last hit the player
+1. The blaster now toggles the ability to store the two projectiles that last hit the player and shoots projectiles back based on the combination of projectiles
+current projectiles with combinations: bolt, shotgun, rocket, grenade
+
 2. The shotgun now activates a power based on the most recently stored projectile
+current projectiles with powers: bolt, shotgun, bullet, rocket, grenade
+
+3. In the console, a projectile can be added into storage using the command format "giveproj [insert projectile here]" (ex. giveproj bolt)
+
+4. The help screen displays a short how-to on using the blaster and shotgun, as well as the current projectiles in each slot and the current power
