@@ -823,7 +823,7 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 	vec3_t		dirToUse;
 
 	if (possProjStorBool[0]) {
-		if (possProjStorBool[1]) { // bolt, shotgun
+		if (possProjStorBool[1]) { // bolt, shotgun; bolt shotgun
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					
@@ -851,11 +851,27 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 		if (possProjStorBool[2]) { // shotgun, bullet
 
 		}
-		else if (possProjStorBool[3]) { // shotgun, rocket
+		else if (possProjStorBool[3]) { // shotgun, rocket; rocket shotgun
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
 
+					dirToUse[0] = 0.25 * i + forward[0];
+					dirToUse[1] = forward[1];
+					dirToUse[2] = 0.25 * j + forward[2];
+					fire_rocket(ent, start, dirToUse, damage, 650, 100, 200);
+				}
+			}
 		}
-		else if (possProjStorBool[4]) { // shotgun, grenade
+		else if (possProjStorBool[4]) { // shotgun, grenade; grenade shotgun
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
 
+					dirToUse[0] = 0.25 * i + forward[0];
+					dirToUse[1] = forward[1];
+					dirToUse[2] = 0.25 * j + forward[2];
+					fire_grenade(ent, start, dirToUse, damage * 2, 600, 2.5, 200);
+				}
+			}
 		}
 		else {//Same projectile as root // shotgun, shotgun; shotgun
 			//gi.dprintf("This should be working");
