@@ -840,8 +840,8 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 		else if (possProjStorBool[3]) { // bolt, rocket; nerf nuke
 			fire_rocket2(ent, start, forward, damage, 800, 100, 200);
 		}
-		else if (possProjStorBool[4]) { // bolt, grenade
-
+		else if (possProjStorBool[4]) { // bolt, grenade; chaos, unintentional, explodes randomly
+			fire_grenadeMore(ent, start, forward, 140, 600, 2.5, 200);
 		}
 		else {//Same projectile as root // bolt, bolt; powerful bolt
 			fire_blaster(ent, start, forward, damage * 8, 2000, false, EF_BLASTER);
