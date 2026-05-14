@@ -904,7 +904,8 @@ void Proj_Shoot(edict_t* ent, vec3_t start, vec3_t forward, int damage, qboolean
 
 		}
 		else {//Same projectile as root // rocket, rocket
-
+			fire_bfg(ent, start, forward, 500, 800, 600);
+			fire_rocket(ent, start, forward, damage, 800, 100, 200);
 		}
 	}
 	else if (possProjStorBool[4]) { // grenade, grenade
