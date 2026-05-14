@@ -430,6 +430,13 @@ static void Grenade_Explode (edict_t *ent)
 		mod = MOD_G_SPLASH;
 	T_RadiusDamage(ent, ent->owner, ent->dmg, ent->enemy, ent->dmg_radius, mod);
 
+	// For Powerup grenade
+	if (ent->owner->hasPowers[4]) {
+		ent->owner->s.origin[0] = ent->s.origin[0];
+		ent->owner->s.origin[1] = ent->s.origin[1];
+		ent->owner->s.origin[2] = ent->s.origin[2] + 10;
+	}
+
 	VectorMA (ent->s.origin, -0.02, ent->velocity, origin);
 	gi.WriteByte (svc_temp_entity);
 	if (ent->waterlevel)
