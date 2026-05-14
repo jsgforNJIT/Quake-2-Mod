@@ -433,6 +433,10 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		}
 		
 	}
+
+	if (strcmp(attacker->classname, "player") == 0 && attacker->hasPowers[3]) {
+		fire_rocket(attacker, point, dir, 30, -10, 100, 10);
+	}
 	/*
 	VectorNormalize(dir);
 	if (strcmp(inflictor->classname, "rocket") == 0) {
