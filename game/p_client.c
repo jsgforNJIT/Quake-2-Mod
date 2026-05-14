@@ -1659,6 +1659,10 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			ent->s.origin[i] = pm.s.origin[i]*0.125;
 			ent->velocity[i] = pm.s.velocity[i]*0.125;
 		}
+		// Power: bullet
+		if (!((ent->velocity[0] == 0) && (ent->velocity[0] == 1) && (ent->velocity[2] == 0)) && ent->hasPowers[2]) {
+			fire_bullet(ent, ent->s.origin, ent->velocity, 10, 0, DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD, MOD_MACHINEGUN);// Might be too often
+		}
 
 		VectorCopy (pm.mins, ent->mins);
 		VectorCopy (pm.maxs, ent->maxs);
